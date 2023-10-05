@@ -5,3 +5,6 @@ from django.shortcuts import render
 
 def home(request):
     return render(request, 'app/home.html')
+
+def landing(request):
+    return render(request, 'app/landing-page.html')
