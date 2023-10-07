@@ -1,0 +1,148 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+
+{% block css %}
+<link href="{% static 'app/assets/css/now-ui-kit-login.css' %}" rel="stylesheet" />
+{% endblock css %}
+  
+
+{% block bodyName %}
+<body class="login-page sidebar-collapse">
+{% endblock bodyName %}
+  
+
+{% block contenido %}
+
+
+<div class="page-header" filter-color="orange">
+  <div class="page-header-image page-header-image"></div>
+  <div class="container">    
+      <div class="col-md-4 content-center">
+          <div class="card card-login card-plain">
+              <form class="form" method="POST" action="">
+                    {% csrf_token %}
+                    <div class="header header-primary text-center">
+                        <div class="logo-container">
+                            <img src="{% static 'app/assets/img/logoPet3.png' %}" alt="">
+                        </div>
+                    </div>
+                    <div class="content">
+                        {% if form.non_field_errors %}
+                        <small class="text-danger">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}
+                        <div class="input-group form-group-no-border input-lg">
+                            <span class="input-group-addon">
+                                <i class="now-ui-icons users_circle-08"></i>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Username" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}">
+                        </div>
+                        {% if form.username.errors %}
+                            <small class="text-danger">
+                                {% for error in form.username.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </small>
+                        {% endif %}
+                        <div class="input-group form-group-no-border input-lg">
+                            <span class="input-group-addon">
+                                <i class="now-ui-icons ui-1_email-85"></i>
+                            </span>
+                            <input type="email" class="form-control" placeholder="Email" name="{{ form.email.name }}" id="{{ form.email.id_for_label }}">
+                        </div>
+                        {% if form.email.errors %}
+                            <small class="text-danger">
+                                {% for error in form.email.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </small>
+                        {% endif %}
+                        <div class="input-group form-group-no-border input-lg">
+                            <span class="input-group-addon">
+                                <i class="now-ui-icons objects_key-25"></i>
+                            </span>
+                            <input type="password" placeholder="Password" class="form-control" name="{{ form.password1.name }}" id="{{ form.password1.id_for_label }}"/>
+                        </div>
+                        {% if form.password1.errors %}
+                            <small class="text-danger">
+                                {% for error in form.password1.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </small>
+                        {% endif %}
+                        <div class="input-group form-group-no-border input-lg">
+                            <span class="input-group-addon">
+                                <i class="now-ui-icons objects_key-25"></i>
+                            </span>
+                            <input type="password" placeholder="Confirme su password" class="form-control" name="{{ form.password2.name }}" id="{{ form.password2.id_for_label }}"/>
+                        </div>
+                        {% if form.password2.errors %}
+                            <small class="text-danger">
+                                {% for error in form.password2.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </small>
+                        {% endif %}
+                    </div>
+                    <div class="footer text-center">
+                        <button class="btn btn-primary btn-round btn-lg btn-block" type="submit">Crear cuenta</button>
+                    </div>
+                    <div class="pull-left">
+                      <h6>
+                          <a href="{% url 'login' %}" class="link">Iniciar sesión</a>
+                      </h6>
+                    </div>
+                    <div class="pull-right">
+                      <h6>
+                          <a href="{% url 'landing' %}" class="link">Ir al home</a>
+                      </h6>
+                    </div>
+                  
+                </form>
+            </div>            
+      </div>
+  </div>
+  <footer class="footer">
+      <div class="container">
+          <nav>
+              <ul>
+                  <li>
+                      <a href="https://www.creative-tim.com">
+                          Creative Tim
+                      </a>
+                  </li>
+                  <li>
+                      <a href="http://presentation.creative-tim.com">
+                          About Us
+                      </a>
+                  </li>
+                  <li>
+                      <a href="http://blog.creative-tim.com">
+                          Blog
+                      </a>
+                  </li>
+                  <li>
+                      <a href="https://github.com/creativetimofficial/now-ui-kit/blob/master/LICENSE.md">
+                          MIT License
+                      </a>
+                  </li>
+              </ul>
+          </nav>
+          <div class="copyright">
+              &copy;
+              <script>
+                  document.write(new Date().getFullYear())
+              </script>, Designed by
+              <a href="http://www.invisionapp.com" target="_blank">Invision</a>. Coded by
+              <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+          </div>
+      </div>
+  </footer>
+</div>
+  
+{% endblock contenido %}
+  
