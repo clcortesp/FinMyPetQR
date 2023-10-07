@@ -13,7 +13,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     <!-- CSS Files -->
     <link href="{% static 'app/assets/css/bootstrap.min.css' %}" rel="stylesheet" />
+    
+    {% block css %}
+
     <link href="{% static 'app/assets/css/now-ui-kit.css' %}" rel="stylesheet" />
+        
+    {% endblock css %}
+        
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{% static 'app/assets/css/demo.css' %}" rel="stylesheet" />
     <!-- Canonical SEO -->
@@ -46,7 +52,10 @@
     <meta property="og:site_name" content="Creative Tim" />
 </head>
 
+
+{% block bodyName %}    
 <body class="landing-page sidebar-collapse">
+{% endblock bodyName %}    
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
         <div class="container">
@@ -68,7 +77,7 @@
                 </div>
             </div>
             <div class="navbar-translate">
-                <a class="navbar-brand" href="http://demos.creative-tim.com/now-ui-kit/index.html" rel="tooltip" title="Designed by Invision. Coded by Creative Tim" data-placement="bottom" target="_blank">
+                <a class="navbar-brand" href="{% url 'landing' %}" rel="tooltip" title="Ir a la página principal" data-placement="bottom" target="_blank">
                     Find my Pet
                 </a>
                 <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
