@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from .choices import COLOR_CHOICES, GENERO
 
 # Create your models here.
 class TipoMascota(models.Model):
@@ -31,10 +32,12 @@ class Mascota(models.Model):
     tipo = models.ForeignKey(TipoMascota, on_delete=models.CASCADE)
     raza = models.ForeignKey(RazaMascota, on_delete=models.CASCADE)
     edad = models.PositiveIntegerField()
+    color = models.CharField(max_length=50, choices=COLOR_CHOICES, null=True)
+    sexo = models.CharField(max_length=50, choices=GENERO, null=True)
     dueño = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     imagen = models.ImageField(upload_to="mascotas", null=True)
-    descripcion = models.TextField(max_length=200, null=True)
-    detalles = models.TextField(max_length=200, null=True)
+    sobre_mi = models.TextField(max_length=200, null=True)
+    detalles_adicionales = models.TextField(max_length=200, null=True)
     
 
     def __str__(self):

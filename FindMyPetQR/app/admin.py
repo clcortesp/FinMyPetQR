@@ -9,7 +9,7 @@ class RazaAdmin(admin.ModelAdmin):
     list_filter = ['tipo_mascota']
 
 class MascotasAdmin(admin.ModelAdmin):
-    list_display = ['nombre', 'tipo', 'raza', 'dueño']
+    list_display = ['nombre', 'tipo', 'raza', 'color', 'sexo', 'dueño']
     search_fields = ['nombre', 'dueño']
     list_filter = ['tipo']
 

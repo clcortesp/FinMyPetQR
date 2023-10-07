@@ -79,7 +79,7 @@
 
                             <div class="col-md-4">
                                 <div class="team-player">
-                                    <a href="#">
+                                    <a href="{% url 'petProfile' m.id%}">
                                         <img src="{{m.imagen.url}}" alt="Thumbnail Image" class="rounded-circle img-fluid img-raised">
                                     </a>
                                     <h4 class="title">{{m.nombre}}</h4>

@@ -54,3 +54,10 @@ def profile(request):
         'total_mascotas': total_mascotas,
     }
     return render(request, 'app/profile-page.html', data)
+
+def petProfile(request, id):
+    mascota = Mascota.objects.get(id=id)
+    data = {
+        'mascota': mascota,
+    }
+    return render(request, 'app/pet-profile.html', data)

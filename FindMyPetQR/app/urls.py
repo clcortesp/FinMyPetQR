@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import home, landing, registro, profile
+from .views import home, landing, registro, profile, petProfile
 
 urlpatterns = [
     path('', landing, name="home"),
@@ -7,4 +7,5 @@ urlpatterns = [
     path('registro/', registro, name='registro'),
 
     path('profile/', profile, name="profile"),
+    path('petProfile/<id>/', petProfile, name="petProfile"),
 ]
