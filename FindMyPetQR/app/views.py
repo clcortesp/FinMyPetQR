@@ -1,11 +1,35 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from rest_framework import viewsets
+from .serializers import RazaSerializer, MascotasSerializer
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Mascota, UserProfile, RazaMascota, TipoMascota
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, MascotaForm
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 # Create your views here.
+class RazaViewset(viewsets.ModelViewSet):
+    queryset = RazaMascota.objects.all()
+    serializer_class = RazaSerializer
+
+    def get_queryset(self):
+        razas = RazaMascota.objects.all()
+
+        tipo = self.request.GET.get('tipo')
+
+        if tipo:
+            razas = razas.filter(tipo_mascota=tipo)
+        return razas
+
+class MascotasViewset(viewsets.ModelViewSet):
+    queryset = Mascota.objects.all()
+    serializer_class = MascotasSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(dueño=self.request.user)
+
+
 
 
 def home(request):
@@ -55,9 +79,23 @@ def profile(request):
     }
     return render(request, 'app/profile-page.html', data)
 
+@login_required
 def petProfile(request, id):
     mascota = Mascota.objects.get(id=id)
     data = {
         'mascota': mascota,
     }
     return render(request, 'app/pet-profile.html', data)
+
+@login_required
+def newPet(request):
+    nombre_url_creacion_mascota = reverse('mascota-list')
+    nombre_url_razas = reverse('raza-list')
+    tipo = TipoMascota.objects.all()
+    data = {
+        'form': MascotaForm,
+        'urlPost': nombre_url_creacion_mascota,
+        'tipo': tipo,
+        'urlRaza': nombre_url_razas
+    }
+    return render(request, 'app/pet-add.html', data)

@@ -1,0 +1,145 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+
+
+    
+{% block contenido %}
+
+<div class="wrapper">
+    <div class="page-header page-header-small">
+        <div class="page-header-image" data-parallax="true">
+        </div>
+        <div class="container">
+            <div class="content-center">
+                <h1 class="title">Nueva mascota</h1>
+            </div>
+            
+            
+        </div>
+    </div>
+    <div class="section section-contact-us text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 text-center col-md-8 ml-auto mr-auto">
+                    <div class="container">
+
+                        <form method="post" enctype="multipart/form-data" action="{{urlPost}}" id="mascota-form" class="row">
+                            <label for="id_nombre">Nombre:</label>
+                            <input type="text" class="form-control" placeholder="First Name..." name="nombre" id="id_nombre" required style="border: 1px solid #f96332;">
+
+                            <label for="id_tipo">Tipo:</label>
+                            <select name="tipo" id="id_tipo" class="form-control select-tipo" required style="border: 1px solid #f96332;">
+                                <option value selected>--------</option>
+                                {% for t in tipo %}
+                                <option value="{{t.id}}">{{t.nombre}}</option>
+                                {% endfor %}
+                            </select>
+
+                            <label for="id_raza">Raza:</label>
+                            <select name="raza" id="id_raza" class="form-control select-raza" required style="border: 1px solid #f96332;">
+                            </select>
+
+                            <label for="id_edad">Edad (Años):</label>
+                            <input type="number" name="edad" min="0" required id="id_edad" class="form-control" style="border: 1px solid #f96332;">
+
+                            <label for="id_sexo">Sexo:</label>
+                            <select name="sexo" id="id_sexo" class="form-control" required style="border: 1px solid #f96332;">
+                                <option value selected>--------</option>
+                                <option value="Macho">Macho</option>
+                                <option value="Hembra">Hembra</option>
+                            </select>
+
+                            <label for="id_imagen">Imagen:</label>
+                            <input type="file" name="imagen" accept="image/*" required id="id_imagen" class="form-control" style="border: 1px solid #f96332;">
+
+                            <label for="id_sobre_mi">Sobre mi:</label>
+                            <textarea name="sobre_mi" id="id_sobre_mi" cols="40" rows="10" class="form-control" placeholder="Here can be your nice text" style="border: 1px solid #f96332;"></textarea>
+                            
+                            <label for="id_detalles_adicionales">Detalles adicionales:</label>
+                            <textarea name="detalles_adicionales" id="id_detalles_adicionales" cols="40" rows="10" class="form-control" placeholder="Here can be your nice text" style="border: 1px solid #f96332;"></textarea>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer footer-default">
+        <div class="container">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="https://www.creative-tim.com">
+                            Creative Tim
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://presentation.creative-tim.com">
+                            About Us
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://blog.creative-tim.com">
+                            Blog
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/creativetimofficial/now-ui-kit/blob/master/LICENSE.md">
+                            MIT License
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="copyright">
+                &copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>, Designed by
+                <a href="http://www.invisionapp.com" target="_blank">Invision</a>. Coded by
+                <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+            </div>
+        </div>
+    </footer>
+</div>
+    
+{% endblock contenido %}
+
+
+
+
+{% block js %}
+
+<script>
+    $(document).ready(function(){
+        $('.select-tipo').change(function(){
+            console.log('funca');
+            var tipoId = $(this).val();
+            var razaSelect = $(this).closest('form').find('.select-raza');
+            razaSelect.empty();
+
+            var apiUrl = "{{urlRaza}}";
+            apiUrl += "?tipo=" + tipoId;
+            $.ajax({
+                url: apiUrl,
+                method: 'GET',
+                success: function(data){
+                    console.log(data);
+                    $.each(data, function(key, value) {
+                        var selectdata = data[key];
+                        var selectId = selectdata.id;
+                        var seletName = selectdata.nombre;
+                        console.log(value);
+                        razaSelect.append($('<option>', {
+                            value: value.id,
+                            text: value.nombre
+                        }));
+                    });   
+                }
+            });
+        });
+    });
+</script>
+{% endblock js %}
+    
+    
