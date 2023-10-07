@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="navbar-translate">
-                <a class="navbar-brand" href="{% url 'landing' %}" rel="tooltip" title="Ir a la página principal" data-placement="bottom" target="_blank">
+                <a class="navbar-brand" href="{% url 'home' %}" rel="tooltip" title="Ir a la página principal" data-placement="bottom" target="_blank">
                     Find my Pet
                 </a>
                 <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,9 +112,19 @@
                             <p class="d-lg-none d-xl-none">Instagram</p>
                         </a>
                     </li>
+                    
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile' %}">Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Login</a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

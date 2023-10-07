@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from .models import Mascota, UserProfile, RazaMascota, TipoMascota
 from .forms import UserRegistrationForm
 from django.contrib.auth import login, authenticate
@@ -35,3 +37,20 @@ def registro(request):
         else:
             form = UserRegistrationForm()
     return render(request, 'registration/registro.html', data)
+
+@login_required
+def profile(request):
+    user = get_object_or_404(User, id=request.user.id)
+    usuario = UserProfile.objects.filter(user=user)
+    mascotas = Mascota.objects.filter(dueño=user)
+    perros_count = Mascota.objects.filter(dueño=user, tipo__nombre='Perro').count()
+    gatos_count = Mascota.objects.filter(dueño=user, tipo__nombre='Gato').count()
+    total_mascotas = Mascota.objects.filter(dueño=user).count()
+    data = {
+        'usuario': usuario,
+        'mascota': mascotas,
+        'perros_count': perros_count,
+        'gatos_count': gatos_count,
+        'total_mascotas': total_mascotas,
+    }
+    return render(request, 'app/profile-page.html', data)

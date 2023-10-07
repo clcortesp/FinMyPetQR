@@ -1,0 +1,152 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+
+{% block css %}
+<link href="{% static 'app/assets/css/now-ui-kit-profile.css' %}" rel="stylesheet" />
+{% endblock css %}
+    
+
+{% block bodyName %}
+<body class="profile-page sidebar-collapse">
+{% endblock bodyName %}
+
+{% block contenido %}
+
+<div class="wrapper">
+    <div class="page-header page-header-small" filter-color="orange">
+        <div class="page-header-image" data-parallax="true">
+        </div>
+        <div class="container">
+            <div class="content-center">
+                
+                {% if usuario %}
+                    
+                    {% for u in usuario %}
+                    <div class="photo-container">
+                        {% if u.imagen %}
+                        <img src="{{u.imagen.url}}" alt="">
+                        {% else %}
+                        <img src="{% static 'app/assets/img/ryan.jpg' %}" alt="">
+                        {% endif %}
+                    </div> 
+                        
+                    {% endfor %}
+                        
+                    
+                {% endif %}
+                <h3 class="title">{{ user.username }}</h3>
+                <p class="category">Photographer</p>
+                <div class="content">
+                    <div class="social-description">
+                        <h2>{{ total_mascotas }}</h2>
+                        <p>Mascotas</p>
+                    </div>
+                    <div class="social-description">
+                        <h2>{{ perros_count }}</h2>
+                        <p>Perros</p>
+                    </div>
+                    <div class="social-description">
+                        <h2>{{ gatos_count }}</h2>
+                        <p>Gatos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="container">
+            <div class="button-container">
+                <a href="#button" class="btn btn-primary btn-round btn-lg">Follow</a>
+                <a href="#button" class="btn btn-default btn-round btn-lg btn-icon" rel="tooltip" title="Follow me on Twitter">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a href="#button" class="btn btn-default btn-round btn-lg btn-icon" rel="tooltip" title="Follow me on Instagram">
+                    <i class="fa fa-instagram"></i>
+                </a>
+            </div>
+            <h3 class="title">About me</h3>
+            <h5 class="description">An artist of considerable range, Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range.</h5>
+            <div class="section section-team text-center">
+                <div class="container">
+                    <h2 class="title">Tus mascotas</h2>
+                    <div class="team">
+                        <div class="row">
+                            
+                            {% if mascota %}
+                            
+                            {% for m in mascota %}
+
+                            <div class="col-md-4">
+                                <div class="team-player">
+                                    <a href="#">
+                                        <img src="{{m.imagen.url}}" alt="Thumbnail Image" class="rounded-circle img-fluid img-raised">
+                                    </a>
+                                    <h4 class="title">{{m.nombre}}</h4>
+                                    <p class="category text-primary">{{m.tipo}}</p>
+                                    <a href="#pablo" class="btn btn-primary btn-icon btn-round"><i class="fa fa-twitter"></i></a>
+                                    <a href="#pablo" class="btn btn-primary btn-icon btn-round"><i class="fa fa-instagram"></i></a>
+                                    <a href="#pablo" class="btn btn-primary btn-icon btn-round"><i class="fa fa-facebook-square"></i></a>
+                                </div>
+                            </div>
+
+                                
+                            {% endfor %}
+                                
+                                
+                            {% endif %}
+                            <div class="col-md-4">
+                                <div class="team-player">
+                                    <a href="">
+    
+                                        <img src="{% static 'app/assets/img/plus.png' %}" alt="Thumbnail Image" class="rounded-circle img-fluid img-raised">
+                                    </a>
+                                    <h4 class="title">Nueva mascota</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer footer-default">
+        <div class="container">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="https://www.creative-tim.com">
+                            Creative Tim
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://presentation.creative-tim.com">
+                            About Us
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://blog.creative-tim.com">
+                            Blog
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/creativetimofficial/now-ui-kit/blob/master/LICENSE.md">
+                            MIT License
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="copyright">
+                &copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>, Designed by
+                <a href="http://www.invisionapp.com" target="_blank">Invision</a>. Coded by
+                <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+            </div>
+        </div>
+    </footer>
+</div>
+    
+{% endblock contenido %}
+    
