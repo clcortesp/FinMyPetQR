@@ -5188,7 +5188,10 @@ Created using IcoMoon - icomoon.io
 }
 
 .profile-page .section-team .team .team-player img {
-    max-width: 100px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
 }
 
 .profile-page.section-team .team-player {

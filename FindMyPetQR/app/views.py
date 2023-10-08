@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Mascota, UserProfile, RazaMascota, TipoMascota
-from .forms import UserRegistrationForm, MascotaForm
+from .forms import UserRegistrationForm, MascotaForm, MascotaFormEdit
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 # Create your views here.
@@ -99,3 +99,24 @@ def newPet(request):
         'urlRaza': nombre_url_razas
     }
     return render(request, 'app/pet-add.html', data)
+
+def deletePet(request, id):
+    mascota = get_object_or_404(Mascota, id=id)
+    mascota.delete()
+    return redirect(to='profile')
+
+def petEdit(request, id):
+    mascota = get_object_or_404(Mascota, id=id)
+    data = {
+        'form': MascotaFormEdit(instance=mascota),
+        'mascota': mascota,
+    }
+
+    if request.method == 'POST':
+        formulario = MascotaFormEdit(data=request.POST, instance=mascota, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request, "Mascota modificada")
+            return redirect(to='petProfile', id=id)
+        data['form'] = formulario
+    return render(request, 'app/pet-edit.html', data)
