@@ -4,10 +4,11 @@ from .serializers import RazaSerializer, MascotasSerializer
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import Mascota, UserProfile, RazaMascota, TipoMascota
+from .models import Mascota, UserProfile, RazaMascota, TipoMascota, ServicioApi
 from .forms import UserRegistrationForm, MascotaForm, MascotaFormEdit
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
+from .api import getToken
 # Create your views here.
 class RazaViewset(viewsets.ModelViewSet):
     queryset = RazaMascota.objects.all()
@@ -82,6 +83,7 @@ def profile(request):
 @login_required
 def petProfile(request, id):
     mascota = Mascota.objects.get(id=id)
+    
     data = {
         'mascota': mascota,
     }
@@ -100,11 +102,13 @@ def newPet(request):
     }
     return render(request, 'app/pet-add.html', data)
 
+@login_required
 def deletePet(request, id):
     mascota = get_object_or_404(Mascota, id=id)
     mascota.delete()
     return redirect(to='profile')
 
+@login_required
 def petEdit(request, id):
     mascota = get_object_or_404(Mascota, id=id)
     data = {
@@ -120,3 +124,21 @@ def petEdit(request, id):
             return redirect(to='petProfile', id=id)
         data['form'] = formulario
     return render(request, 'app/pet-edit.html', data)
+
+def reportar_perdida(request, id):
+    mascota = get_object_or_404(Mascota, id=id)
+
+    # Marcar la mascota como perdida
+    mascota.perdida = True
+    mascota.save()
+
+    return redirect('petProfile', id=id)
+
+def reportar_encontrada(request, id):
+    mascota = get_object_or_404(Mascota, id=id)
+
+    # Marcar la mascota como encontrada
+    mascota.perdida = False
+    mascota.save()
+
+    return redirect('petProfile', id=id)

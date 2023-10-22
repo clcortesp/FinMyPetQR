@@ -7,6 +7,19 @@ import os
 from django.conf import settings
 from django.core.files.storage import default_storage
 
+class ServicioApi(models.Model):
+    client_id = models.CharField(max_length=100)
+    grant_type = models.CharField(max_length=100)
+    client_secret = models.CharField(max_length=100)
+    username = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, null=True)
+    url = models.CharField(max_length=100, null=True)
+
+    def __str__(self):
+        return self.name
+
+
 def mascota_picture_path(instance, filename):
     random_filename = str(uuid.uuid4())
     extension = os.path.splitext(filename)[1]
@@ -66,6 +79,7 @@ class Mascota(models.Model):
     imagen = models.ImageField(upload_to=mascota_picture_path, null=True)
     sobre_mi = models.TextField(max_length=200, null=True)
     detalles_adicionales = models.TextField(max_length=200, null=True)
+    perdida = models.BooleanField(default=False)
     
 
     def __str__(self):

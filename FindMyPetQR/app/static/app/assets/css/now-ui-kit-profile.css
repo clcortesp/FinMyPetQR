@@ -1563,6 +1563,7 @@ fieldset[disabled] .navbar .navbar-nav>a.btn.active {
     height: 3.6rem;
     min-width: 3.6rem;
     width: 3.6rem;
+    z-index: 2;
 }
 
 .btn.btn-icon.btn-lg i.now-ui-icons,
