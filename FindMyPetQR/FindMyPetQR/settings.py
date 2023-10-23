@@ -132,3 +132,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# settings.py
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # El backend de correo a utilizar
+EMAIL_HOST = 'smtp.gmail.com'  # El servidor SMTP
+EMAIL_PORT = 587  # El puerto del servidor SMTP (puede variar según tu proveedor)
+EMAIL_USE_TLS = True  # Utilizar TLS para conexiones seguras
+EMAIL_HOST_USER = 'findmypetqr@gmail.com'  # Tu dirección de correo
+EMAIL_HOST_PASSWORD = 'xiiyvzhtqnhrtdra'  # Tu contraseña
+DEFAULT_FROM_EMAIL = 'findmypetqr@gmail.com'  # Dirección de correo por defecto
+

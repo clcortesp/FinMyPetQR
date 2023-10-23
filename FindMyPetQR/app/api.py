@@ -1,6 +1,8 @@
 import requests
 import json
 from .models import ServicioApi
+from django.core.mail import send_mail
+from django.conf import settings
 
 def getToken():
     token = ServicioApi.objects.get(name = "Token")
@@ -24,3 +26,11 @@ def getToken():
     print(y["access_token"])
     return y["access_token"]
 
+def enviar_correo():
+
+    subject = 'Asunto del correo'
+    message = 'Este es el contenido del correo.'
+    from_email = settings.EMAIL_HOST_USER
+    recipient_list = ['cl.cortesp89@gmail.com']
+
+    send_mail(subject, message, from_email, recipient_list, fail_silently=False)

@@ -8,7 +8,7 @@ from .models import Mascota, UserProfile, RazaMascota, TipoMascota, ServicioApi
 from .forms import UserRegistrationForm, MascotaForm, MascotaFormEdit
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
-from .api import getToken
+from .api import getToken, enviar_correo
 # Create your views here.
 class RazaViewset(viewsets.ModelViewSet):
     queryset = RazaMascota.objects.all()
@@ -83,7 +83,7 @@ def profile(request):
 @login_required
 def petProfile(request, id):
     mascota = Mascota.objects.get(id=id)
-    
+    enviar_correo()
     data = {
         'mascota': mascota,
     }
