@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -138,7 +139,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # El backend de c
 EMAIL_HOST = 'smtp.gmail.com'  # El servidor SMTP
 EMAIL_PORT = 587  # El puerto del servidor SMTP (puede variar según tu proveedor)
 EMAIL_USE_TLS = True  # Utilizar TLS para conexiones seguras
-EMAIL_HOST_USER = 'findmypetqr@gmail.com'  # Tu dirección de correo
-EMAIL_HOST_PASSWORD = 'xiiyvzhtqnhrtdra'  # Tu contraseña
-DEFAULT_FROM_EMAIL = 'findmypetqr@gmail.com'  # Dirección de correo por defecto
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')  # Tu dirección de correo
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')  # Tu contraseña
+DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER')  # Dirección de correo por defecto
 
