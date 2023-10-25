@@ -3,6 +3,7 @@ import json
 from .models import ServicioApi
 from django.core.mail import send_mail
 from django.conf import settings
+from decouple import config
 from geopy.geocoders import GoogleV3
 
 def getToken():
@@ -41,7 +42,7 @@ def getDireccion():
     ciudad = 'La Florida'
 
     direccion_completa = f"{direccion}, {ciudad}"
-    geolocator = GoogleV3(api_key='AIzaSyCwvmZpoHFrr1Ee-TrpAmcj-5yXbq9dWAU')
+    geolocator = GoogleV3(api_key=config(GOOGLE_KEY))
     location = geolocator.geocode(direccion_completa)
     print(location.latitude)
     print(location.longitude)
