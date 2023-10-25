@@ -5,10 +5,10 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Mascota, UserProfile, RazaMascota, TipoMascota, ServicioApi
-from .forms import UserRegistrationForm, MascotaForm, MascotaFormEdit
+from .forms import UserRegistrationForm, MascotaForm, MascotaFormEdit, ProfileFormEdit
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
-from .api import getToken, enviar_correo
+from .api import getToken, enviar_correo, getDireccion
 # Create your views here.
 class RazaViewset(viewsets.ModelViewSet):
     queryset = RazaMascota.objects.all()
@@ -80,10 +80,29 @@ def profile(request):
     }
     return render(request, 'app/profile-page.html', data)
 
+def profileEdit(request):
+    user = get_object_or_404(User, id=request.user.id)
+    usuario = UserProfile.objects.filter(user=user).first()
+    mascotas = Mascota.objects.filter(dueño=user)
+    perros_count = Mascota.objects.filter(dueño=user, tipo__nombre='Perro').count()
+    gatos_count = Mascota.objects.filter(dueño=user, tipo__nombre='Gato').count()
+    total_mascotas = Mascota.objects.filter(dueño=user).count()
+
+    data = {
+        'usuario': usuario,
+        'mascota': mascotas,
+        'perros_count': perros_count,
+        'gatos_count': gatos_count,
+        'total_mascotas': total_mascotas,
+        'form': ProfileFormEdit(instance=usuario),
+    }
+    return render(request, 'app/profile-edit.html', data) 
+
 @login_required
 def petProfile(request, id):
     mascota = Mascota.objects.get(id=id)
-    enviar_correo()
+    #enviar_correo()
+    getDireccion()
     data = {
         'mascota': mascota,
     }

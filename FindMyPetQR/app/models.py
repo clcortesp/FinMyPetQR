@@ -51,7 +51,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     direccion = models.CharField(max_length=100, null=True)
     ciudad = models.CharField(max_length=50, null=True)
-    imagen = models.ImageField(default='default.png', upload_to=profile_picture_path, null=True)
+    imagen = models.ImageField(default='users/default.png', upload_to=profile_picture_path, null=True)
 
     def save(self, *args, **kwargs):
         if self.pk and self.imagen.name != 'default.png':

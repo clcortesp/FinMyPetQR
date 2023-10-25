@@ -3,6 +3,7 @@ import json
 from .models import ServicioApi
 from django.core.mail import send_mail
 from django.conf import settings
+from geopy.geocoders import GoogleV3
 
 def getToken():
     token = ServicioApi.objects.get(name = "Token")
@@ -34,3 +35,14 @@ def enviar_correo():
     recipient_list = ['cl.cortesp89@gmail.com']
 
     send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+
+def getDireccion():
+    direccion = 'Camino del monte 6150'
+    ciudad = 'La Florida'
+
+    direccion_completa = f"{direccion}, {ciudad}"
+    geolocator = GoogleV3(api_key='AIzaSyCwvmZpoHFrr1Ee-TrpAmcj-5yXbq9dWAU')
+    location = geolocator.geocode(direccion_completa)
+    print(location.latitude)
+    print(location.longitude)
+    

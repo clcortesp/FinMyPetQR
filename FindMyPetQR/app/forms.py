@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Mascota
+from .models import Mascota, UserProfile
 
 class MascotaForm(forms.ModelForm):
     
@@ -29,4 +29,12 @@ class MascotaFormEdit(forms.ModelForm):
             'imagen': forms.ClearableFileInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #f96332;'}),
             'sobre_mi': forms.Textarea(attrs={'class': 'form-control', 'style': 'border: 1px solid #f96332;'}),
             'detalles_adicionales': forms.Textarea(attrs={'class': 'form-control', 'style': 'border: 1px solid #f96332;'}),
+        }
+
+class ProfileFormEdit(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['imagen']
+        widgets = {
+            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #f96332;'}),
         }

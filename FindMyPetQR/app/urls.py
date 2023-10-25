@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import home, landing, registro, profile, petProfile, newPet, RazaViewset, MascotasViewset, deletePet, petEdit, reportar_perdida, reportar_encontrada
+from .views import home, landing, registro, profile, petProfile, newPet, RazaViewset, MascotasViewset, deletePet, petEdit, reportar_perdida, reportar_encontrada, profileEdit
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -14,6 +14,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
 
     path('profile/', profile, name="profile"),
+    path('profileEdit/', profileEdit, name="profileEdit"),
     path('newPet/', newPet, name="newPet"),
     path('petProfile/<id>/', petProfile, name="petProfile"),
     path('deletePet/<id>/', deletePet, name="deletePet"),
