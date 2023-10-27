@@ -42,7 +42,7 @@ def getDireccion():
     ciudad = 'La Florida'
 
     direccion_completa = f"{direccion}, {ciudad}"
-    geolocator = GoogleV3(api_key=config(GOOGLE_KEY))
+    geolocator = GoogleV3(api_key=settings.GOOGLE_KEY)
     location = geolocator.geocode(direccion_completa)
     print(location.latitude)
     print(location.longitude)

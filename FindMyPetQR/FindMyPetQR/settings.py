@@ -143,3 +143,5 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')  # Tu dirección de correo
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')  # Tu contraseña
 DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER')  # Dirección de correo por defecto
 
+GOOGLE_KEY = config('GOOGLE_KEY')
+
